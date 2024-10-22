@@ -1,0 +1,34 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "username": "solicitor123@dummymail.com",
+      "password": "pbkdf2_sha256$870000$e1tqyjA5POp1QVzMIGWH33$uIvWDtZhKKjC5lSJszRTZL6VhWMyCrzn14qLY1eZ5bk=",
+      "user_type": "applicant",
+      "budget": 5000,
+      "order_count": 0,
+      "rating": null,
+      "rating_count": 0,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "username": "proveedor456@dummymail.com",
+      "password": "pbkdf2_sha256$870000$LMCixLTEgwByDzSjFkTjVs$hLfIiUDoNCcuoUgWfh8QDGzBrtsgkAS+G6/YzEp1+LM=",
+      "user_type": "supplier",
+      "budget": 5000,
+      "order_count": 0,
+      "rating": null,
+      "rating_count": 0,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
+  }
+]

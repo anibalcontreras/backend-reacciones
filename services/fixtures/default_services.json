@@ -1,0 +1,20 @@
+[
+  {
+    "model": "services.service",
+    "pk": 1,
+    "fields": {
+      "name": "charchazo",
+      "description": "Un buen charchazo para cuando alguien lo necesita.",
+      "price": 100
+    }
+  },
+  {
+    "model": "services.service",
+    "pk": 2,
+    "fields": {
+      "name": "abrazo",
+      "description": "Un abrazo cálido y reconfortante.",
+      "price": 200
+    }
+  }
+]

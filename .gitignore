@@ -1,0 +1,48 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+*.sqlite3
+
+# ENV #
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python #
+*.py[cod]
+*$py.class
+.Python
+env/
+build/
+dist/
+.eggs/
+*.egg-info/
+MANIFEST
+
+# Django Migrations #
+*/migrations/*.py
+*/migrations/*.pyc
+
+# IDEs #
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Static and media files #
+staticfiles/
+media/
+
+# Celery #
+celerybeat-schedule
+*.pid
+
+# Secrets #
+*.env
+.env.local
