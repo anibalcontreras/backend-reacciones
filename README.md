@@ -1,6 +1,6 @@
 # Instrucciones Generales
 
-1. Requisitos: Tener instalado python. Se procede con la creación de un ambiente virtual, que se hace con los comandos a continuación
+1. Requisitos: Tener instalado python. Se procede con la creación de un ambiente virtual, que se hace con los comandos a continuación. Procurar tener habilitado el puerto 8000.
 
 2. Comandos
 
