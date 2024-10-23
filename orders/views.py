@@ -70,6 +70,12 @@ class OrderViewSet(viewsets.ModelViewSet):
         order.total_price = total_price
         order.save()
 
+        # Actualizar el presupuesto del solicitante y el número de pedidos
+        if total_price > 0:  # Solo actualizar si la orden no es gratis
+            request.user.budget -= total_price
+        request.user.order_count += 1
+        request.user.save()
+
         return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
 
     

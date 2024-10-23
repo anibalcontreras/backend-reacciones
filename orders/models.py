@@ -50,9 +50,9 @@ class Order(models.Model):
         total_price = sum(item.service.price * item.quantity for item in self.items.all())
         
         # Actualizar presupuestos
-        self.applicant.budget -= total_price
-        self.applicant.order_count += 1
-        self.applicant.save()
+        # self.applicant.budget -= total_price
+        # self.applicant.order_count += 1
+        # self.applicant.save()
 
 
         if self.supplier:
