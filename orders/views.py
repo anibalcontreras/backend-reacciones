@@ -14,7 +14,7 @@ import random
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]  # Aseguramos que todos los endpoints requieran autenticación
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         """
@@ -22,7 +22,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         Solo los solicitantes pueden crear pedidos.
         """
         services_data = request.data.get('services', [])
-        recipient_id = request.data.get('recipient_id', None)  # Obtener el ID del recipient
+        recipient_id = request.data.get('recipient_id', None)
 
         if not services_data:
             return Response({"error": "Se requiere al menos un servicio."}, status=status.HTTP_400_BAD_REQUEST)
@@ -151,8 +151,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         # Verificar si el estado de la orden permite la cancelación
         if order.status not in ['pending', 'in_progress']:
             return Response({'error': 'Solo se pueden cancelar pedidos pendientes o en progreso.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Cancelar la orden
         order.cancel()
         return Response(OrderSerializer(order).data, status=status.HTTP_200_OK)
 
@@ -172,39 +170,12 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         order.complete()
         return Response(OrderSerializer(order).data, status=status.HTTP_200_OK)
-    
-
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated, IsApplicant])
-    def rate_supplier(self, request, pk=None):
-        """
-        Calificar al proveedor de una orden completada.
-        """
-        order = self.get_object()
-
-        # Verificar si la orden está completada
-        if order.status != 'completed':
-            return Response({"error": "Solo se pueden calificar órdenes completadas."}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Verificar si la orden ya ha sido calificada
-        if order.is_rated:
-            return Response({"error": "Esta orden ya ha sido calificada."}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Obtener la calificación del request
-        rating = request.data.get('rating')
-        if not rating or int(rating) not in range(1, 6):
-            return Response({"error": "La calificación debe estar entre 1 y 5."}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Establecer la calificación
-        order.set_rating(int(rating))
-
-        return Response({"message": "Calificación registrada correctamente."}, status=status.HTTP_200_OK)
-
 
     def get_permissions(self):
         """
         Determinar los permisos para diferentes tipos de usuarios en cada acción.
         """
-        if self.action == 'current_orders' or self.action == 'create' or self.action == 'rate_supplier':
+        if self.action == 'current_orders' or self.action == 'create':
             return [IsAuthenticated(), IsApplicant()]
         elif self.action == 'complete_order' or self.action == 'in_progress_orders' or self.action == 'canceled_or_completed_orders':
             return [IsAuthenticated(), IsSupplier()]

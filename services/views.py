@@ -8,5 +8,5 @@ class ServiceListView(generics.ListAPIView):
     """
     Vista para listar todos los servicios disponibles (charchazo, abrazo, etc.)
     """
-    queryset = Service.objects.all()  # Obtenemos todos los servicios
-    serializer_class = ServiceSerializer  # Utilizamos el serializer para convertir el queryset a JSON
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
