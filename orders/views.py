@@ -9,6 +9,7 @@ from .models import Order, OrderItem
 from .serializers import OrderSerializer
 from services.models import Service
 from users.models import User
+import random
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
@@ -30,12 +31,12 @@ class OrderViewSet(viewsets.ModelViewSet):
         if all(service_data.get('quantity', 0) == 0 for service_data in services_data):
             return Response({"error": "Debe haber al menos un servicio con cantidad mayor que 0."}, status=status.HTTP_400_BAD_REQUEST)
 
-         # Validar el recipient
+        # Validar el recipient
         try:
             recipient = User.objects.get(id=recipient_id)
         except User.DoesNotExist:
             return Response({"error": "El recipient no existe."}, status=status.HTTP_404_NOT_FOUND)
-        
+
         # Crear el pedido para el solicitante autenticado
         order = Order.objects.create(applicant=request.user)
 
@@ -60,15 +61,30 @@ class OrderViewSet(viewsets.ModelViewSet):
         if total_price > request.user.budget:
             return Response({"error": "El precio total excede tu presupuesto disponible."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Asignar el proveedor con menos demanda (menos órdenes completadas)
+        # Asignar el proveedor con menos demanda (menos órdenes completadas), o aleatoriamente si todos tienen 0
         available_suppliers = User.objects.filter(user_type='supplier').order_by('order_count')
-        if available_suppliers.exists():
-            supplier = available_suppliers.first()  # Asigna el proveedor con menos órdenes completadas
-            order.supplier = supplier
 
-        # Guardar el precio total en la orden
+        if available_suppliers.exists():
+            # Tomar el proveedor con el menor número de órdenes, pero si todos tienen el mismo número de órdenes, seleccionar aleatoriamente
+            min_order_count = available_suppliers.first().order_count
+
+            # Filtrar todos los proveedores que tienen el menor número de órdenes (incluyendo 0)
+            suppliers_with_min_orders = available_suppliers.filter(order_count=min_order_count)
+
+            # Si hay más de uno con el mismo número de órdenes, seleccionamos uno aleatoriamente
+            supplier = random.choice(suppliers_with_min_orders)
+
+        else:
+            return Response({"error": "No hay proveedores disponibles."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Asignar el proveedor seleccionado al pedido
+        order.supplier = supplier
         order.total_price = total_price
         order.save()
+
+        # Incrementar el número de órdenes del proveedor inmediatamente
+        supplier.order_count += 1
+        supplier.save()
 
         # Actualizar el presupuesto del solicitante y el número de pedidos
         if total_price > 0:  # Solo actualizar si la orden no es gratis

@@ -110,5 +110,21 @@
       "is_staff": false,
       "is_active": true
     }
+  },
+  {
+    "model": "users.user",
+    "pk": 8,
+    "fields": {
+      "username": "proveedor789@dummymail.com",
+      "password": "pbkdf2_sha256$870000$LMCixLTEgwByDzSjFkTjVs$hLfIiUDoNCcuoUgWfh8QDGzBrtsgkAS+G6/YzEp1+LM=",
+      "user_type": "supplier",
+      "budget": 5000,
+      "order_count": 0,
+      "rating": null,
+      "rating_count": 0,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
   }
 ]

@@ -57,7 +57,7 @@ class Order(models.Model):
 
         if self.supplier:
             self.supplier.budget += total_price
-            self.supplier.order_count += 1
+            # self.supplier.order_count += 1
             self.supplier.save()
 
         if self.recipient:
