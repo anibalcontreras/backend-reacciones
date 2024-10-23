@@ -30,5 +30,85 @@
       "is_staff": false,
       "is_active": true
     }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "username": "recipient1@dummymail.com",
+      "password": "pbkdf2_sha256$870000$BWNZkpACszDEnXxNOQ2lQH$62okIT9+FVkaNNX5VVUqynFVQsEJ5SIl4fgnLZ9Ajck=",
+      "user_type": "recipient",
+      "budget": 5000,
+      "order_count": 0,
+      "rating": null,
+      "rating_count": 0,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "username": "recipient2@dummymail.com",
+      "password": "pbkdf2_sha256$870000$KtMLwiTtSYP5fRgBBvoA6D$3FMKP+RV98sEzlo6eR9nzZAkZnPnARcnMC/a8m+3o8c=",
+      "user_type": "recipient",
+      "budget": 5000,
+      "order_count": 0,
+      "rating": null,
+      "rating_count": 0,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "username": "recipient3@dummymail.com",
+      "password": "pbkdf2_sha256$870000$YrTGHPfDSVMfWCCu1vSTrM$Qa3FxiWeTB6xV9p79H7nDpLRV/r5N+yYUyIo+CrUFLg=",
+      "user_type": "recipient",
+      "budget": 5000,
+      "order_count": 0,
+      "rating": null,
+      "rating_count": 0,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "username": "recipient4@dummymail.com",
+      "password": "pbkdf2_sha256$870000$ffF5fEqnXYG9oCnGJlSOaL$ysEOh3RVvDi1MlL/X1cZX7AfAu2AeHsxTZGoIpHdskw=",
+      "user_type": "recipient",
+      "budget": 5000,
+      "order_count": 0,
+      "rating": null,
+      "rating_count": 0,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 7,
+    "fields": {
+      "username": "recipient5@dummymail.com",
+      "password": "pbkdf2_sha256$870000$KydBpCpQeWWgjEjyct5sjN$R1kxUkmE3HInWmOh4UctTf1RcqC0a/A32WiOZTcX0HU=",
+      "user_type": "recipient",
+      "budget": 5000,
+      "order_count": 0,
+      "rating": null,
+      "rating_count": 0,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
   }
 ]

@@ -53,4 +53,10 @@ class UserDetailView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+
+class RecipientListView(generics.ListAPIView):
+    queryset = User.objects.filter(user_type='recipient')  # Aquí podrías agregar filtros si es necesario
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]  # Solo usuarios autenticados pueden hacer la solicitud
+
         

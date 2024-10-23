@@ -16,8 +16,9 @@ class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)  # Serializar los ítems del pedido
     applicant_username = serializers.ReadOnlyField(source='applicant.username')
     supplier_username = serializers.ReadOnlyField(source='supplier.username')
+    recipient_username = serializers.ReadOnlyField(source='recipient.username')
 
 
     class Meta:
         model = Order
-        fields = ['id', 'applicant_username', 'supplier_username', 'status', 'time_estimated', 'created_at', 'updated_at', 'completed_at', 'items', 'total_price', 'is_rated']
+        fields = ['id', 'applicant_username', 'supplier_username', 'recipient_username', 'status', 'time_estimated', 'created_at', 'updated_at', 'completed_at', 'items', 'total_price', 'is_rated']

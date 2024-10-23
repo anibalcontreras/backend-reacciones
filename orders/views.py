@@ -15,14 +15,14 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]  # Aseguramos que todos los endpoints requieran autenticación
 
-
-    
     def create(self, request, *args, **kwargs):
         """
         Crear un nuevo pedido.
         Solo los solicitantes pueden crear pedidos.
         """
         services_data = request.data.get('services', [])
+        recipient_id = request.data.get('recipient_id', None)  # Obtener el ID del recipient
+
         if not services_data:
             return Response({"error": "Se requiere al menos un servicio."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -30,6 +30,12 @@ class OrderViewSet(viewsets.ModelViewSet):
         if all(service_data.get('quantity', 0) == 0 for service_data in services_data):
             return Response({"error": "Debe haber al menos un servicio con cantidad mayor que 0."}, status=status.HTTP_400_BAD_REQUEST)
 
+         # Validar el recipient
+        try:
+            recipient = User.objects.get(id=recipient_id)
+        except User.DoesNotExist:
+            return Response({"error": "El recipient no existe."}, status=status.HTTP_404_NOT_FOUND)
+        
         # Crear el pedido para el solicitante autenticado
         order = Order.objects.create(applicant=request.user)
 

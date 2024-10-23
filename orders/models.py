@@ -12,6 +12,7 @@ def default_time_estimated():
 class Order(models.Model):
     applicant = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='applicant_orders')
     supplier = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='supplier_orders')
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='recipient_orders')
     status = models.CharField(max_length=20, choices=(
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
@@ -50,12 +51,19 @@ class Order(models.Model):
         
         # Actualizar presupuestos
         self.applicant.budget -= total_price
+        self.applicant.order_count += 1
         self.applicant.save()
+
 
         if self.supplier:
             self.supplier.budget += total_price
             self.supplier.order_count += 1
             self.supplier.save()
+
+        if self.recipient:
+            self.order_count += 1
+            self.recipient.save()
+
 
         self.status = 'completed'
         self.completed_at = timezone.now()
@@ -85,7 +93,6 @@ class Order(models.Model):
             # Marcar la orden como calificada
             self.is_rated = True
             self.save()
-
 
 
 class OrderItem(models.Model):

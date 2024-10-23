@@ -7,10 +7,11 @@ class User(AbstractUser):
     USER_TYPE_CHOICES = (
         ('applicant', 'Applicant'),
         ('supplier', 'Supplier'),
+        ('recipient', 'Recipient')
     )
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
     budget = models.PositiveIntegerField(default=5000)
-    order_count = models.PositiveIntegerField(default=0)  # Cantidad de órdenes completadas (para proveedores)
+    order_count = models.PositiveIntegerField(default=0)  # Cantidad de órdenes completadas (para solicitantes)
     rating = models.FloatField(null=True, blank=True)  # Promedio de calificaciones (para proveedores)
     rating_count = models.PositiveIntegerField(default=0)  # Cantidad de calificaciones recibidas
 
