@@ -26,8 +26,8 @@ dist/
 MANIFEST
 
 # Django Migrations #
-*/migrations/*.py
-*/migrations/*.pyc
+# */migrations/*.py
+# */migrations/*.pyc
 
 # IDEs #
 .vscode/
